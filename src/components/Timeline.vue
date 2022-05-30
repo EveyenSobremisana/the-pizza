@@ -245,7 +245,7 @@ export default {
       text-transform: uppercase;
       color: red;
       writing-mode: vertical-rl; // to make writing orientation vertical
-      padding-left: 2em;
+      padding: 2em;
       background: #fff;
       z-index: 2;
     }
