@@ -3,11 +3,16 @@
   <section class="timeline">
     <!-- Pizza top half -->
     <div class="pizza-top">
-      <img :src="pizzaUpHalfImg" rel="preload" alt="Pizza half" />
+      <img
+        :src="pizzaUpHalfImg"
+        rel="preload"
+        alt="Pizza half"
+        @load="loadedFirstHalf"
+      />
     </div>
     <!-- Timeline content  -->
     <div
-      v-if="show"
+      v-if="show && pizzaUpHalfImg && pizzaDownHalfImg"
       class="timeline-content animate__animated animate__slideInRight"
     >
       <h1 class="timeline-title">the origin story of pizza</h1>
@@ -62,6 +67,7 @@
         class="animate__animated animate__fadeOutDownBig"
         alt="Pizza half"
         rel="preload"
+        @load="loadedSecondHalf"
       />
     </div>
   </section>
@@ -88,6 +94,9 @@ export default {
   data() {
     return {
       show: false,
+      firstHalfLoaded: false,
+      secondHalfLoaded: false,
+      abortAnimation: false,
       topHistory: [
         {
           title: "79 A.D",
@@ -144,40 +153,81 @@ export default {
       icon8,
     };
   },
-  //   Life cycle hook
-  mounted() {
-    //   Creating timeout
-    setTimeout(() => {
-      // Changing show value
-      this.show = true;
-      // Removing class from bottom half of pizza
-      document
-        .querySelector(".pizza-bottom  > img")
-        .classList.remove("animate__fadeOutDownBig");
-    }, 1000);
+  // Functions
+  methods: {
+    loadedFirstHalf() {
+      this.firstHalfLoaded = true;
+    },
+    loadedSecondHalf() {
+      this.secondHalfLoaded = true;
+    },
+  },
+  // Watcher
+  watch: {
+    firstHalfLoaded() {
+      if (this.secondHalfLoaded === true && this.abortAnimation === false) {
+        this.abortAnimatio = true;
+        // Creating timeout
+        setTimeout(() => {
+          // Changing show value
+          this.show = true;
+        }, 300);
+        //   Creating timeout
+        setTimeout(() => {
+          // Added relative call into timeline content
+          document.querySelector(".timeline-content").classList.add("relative");
+          // Removing fadeout class from pizza bootom
+          document
+            .querySelector(".pizza-bottom  > img")
+            .classList.remove("animate__fadeOutDownBig");
+        }, 1400);
+      }
+    },
+    secondHalfLoaded() {
+      if (this.firstHalfLoaded === true && this.abortAnimation === false) {
+        this.abortAnimatio = true;
+        // Creating timeout
+        setTimeout(() => {
+          // Changing show value
+          this.show = true;
+        }, 300);
+        //   Creating timeout
+        setTimeout(() => {
+          // Added relative call into timeline content
+          document.querySelector(".timeline-content").classList.add("relative");
+          // Removing fadeout class from pizza bootom
+          document
+            .querySelector(".pizza-bottom  > img")
+            .classList.remove("animate__fadeOutDownBig");
+        }, 1400);
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .timeline {
+  position: relative;
   .pizza-top,
   .pizza-bottom {
     max-width: 550px;
     margin: auto;
     img {
       width: 100%;
-      animation-duration: 4s;
+      animation-duration: 6s;
       filter: drop-shadow(5px 5px 10px #333);
     }
   }
   .timeline-content {
     background: #fff;
     margin-top: -5px;
-    animation-duration: 2s;
+    animation-duration: 1s;
     border-radius: 5px;
     display: flex;
     align-items: center;
+    position: fixed;
+    width: 100%;
     .timeline-title {
       font-size: 2rem;
       text-transform: uppercase;
@@ -521,6 +571,9 @@ export default {
   top: 332px;
   left: 0;
   right: 0;
+}
+.relative {
+  position: relative !important;
 }
 
 // Media queries
