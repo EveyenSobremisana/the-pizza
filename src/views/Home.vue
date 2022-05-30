@@ -67,10 +67,16 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  padding: 50px 5px;
-  min-height: 105vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 100vh;
+  padding-top: 50px;
   background: linear-gradient(78.84deg, #e63c01 3%, #fd8c00 96.8%);
+  position: relative;
   .landing {
+    padding: 0px 10px;
     .top {
       display: flex;
       justify-content: center;
@@ -105,19 +111,16 @@ export default {
       img {
         animation-duration: 2s;
         width: 100%;
-        transition: 0.3s ease;
         cursor: pointer;
         border-radius: 50%;
-        transition: 0.3s linear;
+        transition: 0.3s ease-in-out;
+
         &:hover {
-          box-shadow: 5px 5px 5px #1111;
+          filter: drop-shadow(5px 5px 10px #333);
         }
       }
     }
   }
-}
-.cut {
-  display: block !important;
 }
 
 // Media queries
@@ -125,6 +128,12 @@ export default {
   .home {
     .landing {
       .top {
+        .bar {
+          display: block;
+          width: 50px;
+          height: 2px;
+          background: #fff;
+        }
         .sub-title {
           font-size: 1rem;
         }

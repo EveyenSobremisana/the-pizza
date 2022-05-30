@@ -3,7 +3,7 @@
   <section class="timeline">
     <!-- Pizza top half -->
     <div class="pizza-top">
-      <img :src="pizzaUpHalfImg" alt="Pizza half" />
+      <img :src="pizzaUpHalfImg" rel="preload" alt="Pizza half" />
     </div>
     <!-- Timeline content  -->
     <div
@@ -61,6 +61,7 @@
         :src="pizzaDownHalfImg"
         class="animate__animated animate__fadeOutDownBig"
         alt="Pizza half"
+        rel="preload"
       />
     </div>
   </section>
@@ -162,11 +163,12 @@ export default {
 .timeline {
   .pizza-top,
   .pizza-bottom {
-    max-width: 500px;
+    max-width: 550px;
     margin: auto;
     img {
       width: 100%;
       animation-duration: 4s;
+      filter: drop-shadow(5px 5px 10px #333);
     }
   }
   .timeline-content {
