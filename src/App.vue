@@ -20,8 +20,8 @@ export default {
   @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
   font-family: "Open Sans", sans-serif;
 }
-body{
-    background: linear-gradient(78.84deg, #e63c01 3%, #fd8c00 96.8%);
+body {
+  background: linear-gradient(78.84deg, #e63c01 3%, #fd8c00 96.8%);
 }
 
 ::-webkit-scrollbar {

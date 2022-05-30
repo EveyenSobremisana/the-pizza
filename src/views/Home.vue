@@ -26,10 +26,14 @@
           :src="pizzaImg"
           class="animate__rotateIn animate__animated first-half"
           alt="Pizza image"
-          @click="toggleTimeLine"
+          @click="splitImage"
         />
       </div>
-      <Timeline class="animate__animated" v-if="showTimeLine" />
+      <Timeline
+        @toggleTimeLine="toggleTimeLine"
+        :split="split"
+        class="animate__animated"
+      />
     </section>
   </main>
   <!-- Home  -->
@@ -50,12 +54,16 @@ export default {
   data() {
     // Returning data
     return {
+      split: false,
       showTimeLine: false,
       logoImg,
       pizzaImg,
     };
   },
   methods: {
+    splitImage() {
+      this.split = true;
+    },
     // This function will toggle timeline
     toggleTimeLine() {
       // Changing showTimeLine value

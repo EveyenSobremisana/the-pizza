@@ -1,6 +1,6 @@
 <template>
   <!-- Timeline  -->
-  <section class="timeline">
+  <section v-if="showEverything" class="timeline">
     <!-- Pizza top half -->
     <div class="pizza-top">
       <img
@@ -91,8 +91,10 @@ import icon8 from "../assets/images/Icon-8.svg";
 
 export default {
   name: "Timeline",
+  props: ["split"],
   data() {
     return {
+      showEverything: false,
       show: false,
       firstHalfLoaded: false,
       secondHalfLoaded: false,
@@ -166,6 +168,9 @@ export default {
   watch: {
     firstHalfLoaded() {
       if (this.secondHalfLoaded === true && this.abortAnimation === false) {
+        // Calling parent to remove deafult pizza image and footer so animation can play
+        this.$parent.toggleTimeLine();
+        // Setting abortAnimtion value to true
         this.abortAnimatio = true;
         // Creating timeout
         setTimeout(() => {
@@ -185,6 +190,9 @@ export default {
     },
     secondHalfLoaded() {
       if (this.firstHalfLoaded === true && this.abortAnimation === false) {
+        // Calling parent function to remove default pizza image and footer so animation can play
+        this.$parent.toggleTimeLine();
+        // Setting abortAnimtion value to true
         this.abortAnimatio = true;
         // Creating timeout
         setTimeout(() => {
@@ -201,6 +209,10 @@ export default {
             .classList.remove("animate__fadeOutDownBig");
         }, 1400);
       }
+    },
+    split: function (newValue, oldValue) {
+      // Setting showEverything value to true
+      this.showEverything = true;
     },
   },
 };
